@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "ryabov.sso.v1;ssov1";
+
+service auth {
+    rpc Register (RegisterRequest) returns (RegisterResponse);
+    rpc Login (LoginRequest) returns (LoginResponse);
+    rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
+}
+
+message RegisterRequest {
+    string email = 1;       // Users's email for register.
+    string password = 2;    // Users's password for register.
+}
+
+message RegisterResponse {
+    int64 user_id = 1;      // User register ID.
+}
+
+message LoginRequest {
+    string email = 1;       // User's email for Login.
+    string password = 2;    // User's password for Login.
+    int32 app_id = 3;       // App ID for Login.
+}
+
+message LoginResponse {
+    string token = 1;       // Auth token for logged user.
+}
+
+message IsAdminRequest {
+    int64 user_id = 1;      // User ID for validate.
+}
+
+message IsAdminResponse {
+    bool is_admin = 1;      // Admin flag.
+}
